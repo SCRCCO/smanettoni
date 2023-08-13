@@ -1,0 +1,267 @@
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+  }
+.corpo{
+
+  background: linear-gradient(to bottom, #DEF4FE,#ffff, #ffff);
+  }
+.container_generale{
+    display: flex;
+    min-height: 100vh;
+    width: 80%;
+    margin: 0 auto;
+    
+
+
+}
+.container_destro{
+
+   
+    flex: 0.5;
+    display: flex;
+    flex-direction: column;
+
+
+}
+.container_sinistro {
+  flex: 0.5;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items:  center;
+
+}
+
+.sinistra {
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.container_immagine {
+  align-self: center;
+  margin-top: auto; /* Push the image to the bottom */
+  margin-left: 20px; /* Add some space from the left */
+  
+}
+
+img {
+  height: 540px;
+
+
+}
+.scritta{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    width: 100%x;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    
+    
+
+   
+   
+}
+.scritta>img{
+    height: 106px;
+    margin-bottom: 5px;
+    margin-right: 30px;
+   
+    
+    
+
+}
+.scritta>p{
+    font-weight: bold;
+    font-size: 40px;
+    font-family: 'Zen Kaku Gothic Antique', sans-serif;
+    color: rgba(0, 0, 0, 0.8); /* 50% transparent black text */
+    
+    
+
+}
+.descrizione{
+    align-self: left;
+    width: 100%;
+    color: #56379A;
+
+    font-family: 'Zen Kaku Gothic Antique', sans-serif;
+    font-size: 20px;
+    margin-bottom: 120px;
+    text-align: left;
+    line-height:30px;
+    font-weight: medium;
+    
+
+    color: #56379A;
+}
+.container_login{
+    
+    height: 80%;
+    width: 60%;
+    margin-left: 10%;
+    background-color: white;
+    border-radius: 24PX;
+    align-self: left;
+    margin-top: auto; /* Push the image to the bottom */
+}
+.titolo{
+    font-family: 'Zen Kaku Gothic Antique', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: left;
+    margin-top: 30px;
+    margin-left: 30px;
+}
+.input-container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    display: inline-block;
+    position: relative;
+    width: 80%;
+    margin-top:30px;
+
+  }
+  .submit-button {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 16px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+
+    width: 80%; /* Adjust as needed */
+    margin-top: 30px;
+    font-family: 'Zen Kaku Gothic Antique', sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+
+  }
+  .orlabel{
+    font-size: 12px;
+    font-family: 'Zen Kaku Gothic Antique', sans-serif;
+    color: black;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    margin-top: 40px;
+    border-bottom: 1px solid lightgray;
+  }
+  .scrittaor{
+    position: absolute;
+    top: 258px; /* Adjust as needed */
+    background-color: white;
+    padding: 0 10px;
+  }
+  .accessiesterni{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .google{
+    display: flex;
+    flex-direction: row;
+    width: 78%;
+    margin-top: 40px;
+    border: 1px solid gray;
+    background-color: white;
+    border-radius: 8px;
+    font-size: 12px;
+    color:#778899;
+    justify-content: center;
+    align-items: center;
+    transition: border-width 0.2s;
+    
+
+  }
+  .google:hover{
+    
+    border: 4px solid whitesmoke;
+
+  }
+  .facebook:hover{
+    
+    border: 4px solid whitesmoke;
+
+  }
+  .linkedin:hover{
+    
+    border: 4px solid whitesmoke;
+
+  }
+  .facebook{
+    display: flex;
+    flex-direction: row;
+    width: 78%;
+    margin-top: 20px;
+    border: 1px solid gray;
+    background-color: white;
+    border-radius: 8px;
+    font-size: 12px;
+    color:#778899;
+    justify-content: center;
+    align-items: center;
+    transition: border-width 0.2s;
+    
+    
+
+  }
+  .linkedin{
+    display: flex;
+    flex-direction: row;
+    width: 78%;
+    margin-top: 20px;
+    border: 1px solid gray;
+    background-color: white;
+    border-radius: 8px;
+    font-size: 12px;
+    color:#778899;
+    justify-content: center;
+    align-items: center;
+    transition: border-width 0.2s;
+    
+
+  }
+.google>img{
+    
+
+    height: 18px;
+    width: 18px;
+}
+.google>p{
+    flex: 0.9;
+}
+.facebook>img{
+    height: 18px;
+    width: 18px;
+}
+.facebook>p{
+    flex: 0.9;
+}
+.linkedin>img{
+    height: 15px;
+    width: 15px;
+}
+.linkedin>p{
+    flex: 0.9;
+}
+.testofinale{
+    margin-top: 30px;
+    font-family: 'Zen Kaku Gothic Antique', sans-serif;
+    color: black;
+    font-size: 12px;
+}
+.link{
+  font-weight: bold;
+  color: bl;
+}
