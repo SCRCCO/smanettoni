@@ -2,12 +2,17 @@ import React, { useState } from "react";
 import "./Login2.css";
 import InputButton from "./InputButton";
 import { Link } from "react-router-dom";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import {auth} from "./../firebase";
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from '../redux/authActions';
 
 export default function Login2() {
+  const [userlog, setUserlog] = useState("");
+  const dispatch = useDispatch();
   const nav = useNavigate();
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
@@ -19,15 +24,16 @@ export default function Login2() {
   };
   const handleLogin = () => {
     try {
-      const auth = getAuth();
+   
       signInWithEmailAndPassword(auth, email, pass)
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          // ...
-        })
-        .then(() => {
+          dispatch(loginSuccess(user.email));
           nav("/home");
+          // ...
+     
+          
         })
         .catch((error) => {
           const errorCode = error.code;

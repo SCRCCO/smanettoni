@@ -1,28 +1,38 @@
-import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login2 from "./components/Login2";
-import Register from "./components/Register";
-import Home from "./components/Home";
-import { configureStore } from "@reduxjs/toolkit";
-import { Provider } from "react-redux";
-import rootReducer from "./reducers"; // Importa il tuo rootReducer
-import App from "./App";
 
-const store = configureStore(rootReducer);
+import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login2 from './components/Login2';
+import Register from './components/Register';
+import Home from './components/Home';
+import store from './redux/store'; // Importa il tuo store
+import { Provider } from 'react-redux';
+
+
 
 function App() {
   return (
+    
     <div className="App">
-      <Provider store={store}>
-        <Router>
-          <Routes>
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login2 />} />
-            <Route path="*" element={<Login2 />} />
-            <Route path="/home" element={<Home />} />
-          </Routes>
-        </Router>
+       <Router>
+       <Provider store={store}>
+
+      <Routes>
+        
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login2 />} />
+        <Route path="*" element={<Login2 />} />
+        <Route path="/home" element={<Home/>}/>
+
+      </Routes>
       </Provider>
+
+    </Router>
+  
+      
+
+    
+   
+
     </div>
   );
 }

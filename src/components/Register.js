@@ -1,8 +1,9 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { FacebookAuthProvider } from "firebase/auth";
-import { auth } from "./../firebase";
-import React, { useState, useEffect } from "react";
+import {auth} from "./../firebase";
+
+import React, { useState,useEffect } from "react";
 import "./Login2.css";
 import InputButton from "./InputButton";
 import { Link, useAsyncError } from "react-router-dom";
@@ -11,6 +12,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 
+
 export default function Register() {
   const nav = useNavigate();
 
@@ -18,22 +20,9 @@ export default function Register() {
   const [user, setUser] = useState("");
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
-  useEffect(() => {
-    // Set up an authentication state observer
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        // User is signed in
-        setUser(user);
-      } else {
-        // User is signed out
-        setUser(null);
-      }
-    });
+  
 
-    // Clean up the observer when the component unmounts
-    return () => unsubscribe();
-  }, []);
-
+  
   const handleChangeUser = (e) => {
     setUser(e.target.value);
   };
@@ -62,6 +51,7 @@ export default function Register() {
         return;
       }
 
+     
       createUserWithEmailAndPassword(auth, email, pass)
         .then((userCredential) => {
           // Signed in
@@ -86,58 +76,58 @@ export default function Register() {
     }
     console.log(logged);
   };
-  const handleGoogle = () => {
+  const handleGoogle =  () => {
     const provider = new GoogleAuthProvider();
 
     signInWithPopup(auth, provider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        // The signed-in user info.
-        const user = result.user;
-        // IdP data available using getAdditionalUserInfo(result)
-        // ...
-      })
-      .then(() => {
-        nav("/home");
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
-      });
-  };
-  const handleFacebook = () => {
+    .then((result) => {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      // The signed-in user info.
+      const user = result.user;
+      // IdP data available using getAdditionalUserInfo(result)
+      // ...
+    }).then(() => {
+          nav("/home");
+        }).catch((error) => {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.customData.email;
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      // ...
+    });}
+  const handleFacebook =  () => {
+
     const provider = new FacebookAuthProvider();
     signInWithPopup(auth, provider)
-      .then((result) => {
-        // The signed-in user info.
-        const user = result.user;
+  .then((result) => {
+    // The signed-in user info.
+    const user = result.user;
 
-        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-        const credential = FacebookAuthProvider.credentialFromResult(result);
-        const accessToken = credential.accessToken;
+    // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+    const credential = FacebookAuthProvider.credentialFromResult(result);
+    const accessToken = credential.accessToken;
 
-        // IdP data available using getAdditionalUserInfo(result)
-        // ...
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = FacebookAuthProvider.credentialFromError(error);
+    // IdP data available using getAdditionalUserInfo(result)
+    // ...
+  })
+  .catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.customData.email;
+    // The AuthCredential type that was used.
+    const credential = FacebookAuthProvider.credentialFromError(error);
 
-        // ...
-      });
+    // ...
+  });
+
+    
   };
   return (
     <div className="corpo">
@@ -197,7 +187,7 @@ export default function Register() {
                   <img src="./assets/google.png" alt="google" />
                   <p>Continue with Google </p>
                 </button>
-                {/*                <button onClick={handleFacebook} className="facebook">
+                 {/*                <button onClick={handleFacebook} className="facebook">
                   <img src="./assets/facebook.png" alt="facebook" />
                   <p>Continue with Facebook</p>
                 </button>
@@ -205,6 +195,7 @@ export default function Register() {
                   <img src="./assets/linkedin.png" alt="linkedin" />
                   <p>Continue with Linkedin</p>
                 </button>  */}
+
               </div>
               <div className="testofinale">
                 Already have an account?{" "}
