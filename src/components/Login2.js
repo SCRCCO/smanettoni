@@ -9,9 +9,10 @@ import { useNavigate } from "react-router-dom";
 import {auth} from "./../firebase";
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../redux/authActions';
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 export default function Login2() {
-  const [userlog, setUserlog] = useState("");
+
   const dispatch = useDispatch();
   const nav = useNavigate();
   const [email, setEmail] = useState("");
@@ -24,26 +25,51 @@ export default function Login2() {
   };
   const handleLogin = () => {
     try {
-   
       signInWithEmailAndPassword(auth, email, pass)
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
           dispatch(loginSuccess(user.email));
           nav("/home");
-          // ...
-     
-          
         })
         .catch((error) => {
           const errorCode = error.code;
-          toast.error("Invalid Email or passsword");
+          if (errorCode === "auth/user-not-found") {
+            toast.error("Email not registered. Please sign up.");
+          } else {
+            toast.error("Invalid Email or password");
+          }
           const errorMessage = error.message;
         });
     } catch (error) {
-      console.error("Registration error:", error);
+      console.error("Login error:", error);
     }
   };
+  const handleGoogle =  () => {
+    const provider = new GoogleAuthProvider();
+
+    signInWithPopup(auth, provider)
+    .then((result) => {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      // The signed-in user info.
+      const user = result.user;
+      dispatch(loginSuccess(user.email));
+      // IdP data available using getAdditionalUserInfo(result)
+      // ...
+    }).then(() => {
+          nav("/home");
+        }).catch((error) => {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.customData.email;
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      // ...
+    });}
 
   return (
     <div className="corpo">
@@ -94,7 +120,7 @@ export default function Login2() {
                 <div className="scrittaor">Or</div>
               </div>
               <div className="accessiesterni">
-                <button className="google">
+                <button onClick={handleGoogle} className="google">
                   <img src="./assets/google.png" alt="google" />
                   <p>Continue with Google </p>
                 </button>

@@ -2,7 +2,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { FacebookAuthProvider } from "firebase/auth";
 import {auth} from "./../firebase";
-
+import { loginSuccess } from '../redux/authActions';
 import React, { useState,useEffect } from "react";
 import "./Login2.css";
 import InputButton from "./InputButton";
@@ -11,10 +11,11 @@ import validator from "validator";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch } from 'react-redux';
 
 export default function Register() {
   const nav = useNavigate();
+  const dispatch = useDispatch();
 
   const [logged, setLogged] = useState(false); // Use the useState hook
   const [user, setUser] = useState("");
@@ -53,27 +54,27 @@ export default function Register() {
 
      
       createUserWithEmailAndPassword(auth, email, pass)
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-          // ...
-        })
-        .then(() => {
-          toast.success("Registration successful");
-        })
-        .then(() => {
-          nav("/home");
-        })
-        .then(() => (logged = true))
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          // ..
-        });
-    } catch (error) {
-      console.error("Registration error:", error);
-      toast.error("Registration failed");
-    }
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        toast.success("Registration successful");
+        dispatch(loginSuccess(user.email));
+        nav("/home");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        
+        if (errorCode === "auth/email-already-in-use") {
+          toast.error("Email is already registered. Please log in.");
+        } else {
+          toast.error("Registration failed. Please try again later.");
+        }
+      });
+  } catch (error) {
+    console.error("Registration error:", error);
+    toast.error("Registration failed");
+  }
     console.log(logged);
   };
   const handleGoogle =  () => {
@@ -87,6 +88,7 @@ export default function Register() {
       // The signed-in user info.
       const user = result.user;
       // IdP data available using getAdditionalUserInfo(result)
+      dispatch(loginSuccess(user.email));
       // ...
     }).then(() => {
           nav("/home");
